@@ -1,0 +1,9 @@
+<%include ./partials/header.ejs%>
+<%result.forEach(function(element) { %>
+    <div class="col-sm-12 response">
+        <div><p class="ticket_number"><%=(element.ticket)%></p></div>
+        <div><p class="ticket_time"><%=(element.time)%></p></div>
+</div>
+<%  });%>
+
+<%include ./partials/footer.ejs%>
