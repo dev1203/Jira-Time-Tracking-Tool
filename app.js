@@ -10,7 +10,7 @@ var $ = jQuery = require('jquery');
 var connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
-    password : 'Jaishriram3',
+    password : '***********',
     database: 'todoapp'
 });
 
