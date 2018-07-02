@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Today's Summary</title>
+</head>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+ <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="sidebar.css">
+<link rel="stylesheet" type="text/css" href="style.css">
+<body>
+	<!-- Side Navbar -->
+<div class="sidenav" id="sidenav">
+    <a href="javascript:void(0)" class="closebtn" id="close">&times;</a>
+    <a href="today.html">Today</a>
+    <a href="search.html">Search Ticket</a>
+    <a href="weekly.html">Weekly Summary</a>
+    <a href="out.html" id="out">Sign Out</a>
+    <a gref="#"id="userName">Hello</a>
+
+</div>
+<span id="open">&#9776;</span>
+
+<!-- End of SidenavBar -->
+
+<div id="result_page">
+<div class="container form">
+    <div class="form_box">
+        <!-- <form method="post" action="/postdata"> -->
+            <div class="form-group">
+                <label for="ticket">Ticket Number</label>
+                <input type="text" name="ticket" class="form-control" id="ticket" placeholder="Ticket Number">
+            </div>
+            <div class="form-group">
+                <label>Task Type</label>
+                <select class="form-control" id="ticket_type">
+                	<option value="1">Product Developement</option>
+                	<option value="2">Department O/H</option>
+                	<option value="3">Internal Process</option>
+                	<option value="4">Internal Marketing Work</option>
+                	<option value="5">Sales Support</option>
+                	<option value="6">Education</option>
+                	<option value="7">Century-21</option>
+                </select>
+            </div>
+        <!-- </form> -->
+        <div class="form_group">
+            <label for="start">Start Time</label>
+            <input class="timepicker form-control" id="start_time">
+        </div>
+        <div class="form_group">
+            <label>End Time</label>
+            <input class="timepicker form-control" id="end_time">
+        </div>
+    </div>
+    <div id="calculate">
+    <button class="btn btn-primary" id="Summary_calculate">Summarize</button>
+    <textarea id="result_check" class="form-control"></textarea>
+    <button class="btn btn-primary" id="time_calculate">Submit</button>
+
+	</div>
+</div>
+<!-- Search Bar -->
+
+
+<!-- Table for results -->
+<div class="container">
+    <div class="table_main">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Ticket Number</th>
+                <th scope="col">QA Time</th>
+                <th scope="col">Developer Time</th>
+                <th scope="col">Today's Time</th>
+            </tr>
+            </thead>
+            <tbody id="table_content">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</div>
+
+
+<script type="text/javascript" src="moment.min.js"></script>
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+<script src="script.js"></script>
+
+<script>if (window.module) module = window.module;</script>
+<!-- <script type="text/javascript" src="landingpage.js"></script> -->
+<!-- <script type="text/javascript"src="script.js"></script> -->
+
+</body>
+</html>

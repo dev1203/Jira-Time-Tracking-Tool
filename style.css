@@ -1,0 +1,105 @@
+body,html{
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: #DFE2DB;
+}
+*{
+    box-sizing: border-box;
+}
+
+#result_page{
+    display: inline-block;
+    float: right;
+}
+#calculate{
+    margin-top: 3%;
+    text-align: center;
+}
+.form{
+    width: 100%;
+    height: 65vh;
+    background-image: linear-gradient(to top, #f77062 0%, #fe5196 100%);
+    text-align: center;
+}
+.form_box{
+    padding-top: 50px;
+}
+label{
+    color: white;
+    display: block;
+}
+.response{
+    margin-top: 5%;
+    border-radius: 10px;
+    background-color: white;
+    color: black;
+    width: 100%;
+    padding: 30px;
+
+}
+.response:last-of-type{
+    margin-bottom: 100px;
+}
+
+#modal_summary{
+    position: fixed;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 80%;
+    height: 80%;
+    z-index: 1;
+    background-image: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
+    /*display: none;*/
+    text-align: center;
+}
+#modal_summary div{
+    position: relative;
+    top:50%;
+    transform: translate(0,-50%);
+}
+textarea{
+    width: 80%;
+}
+.table{
+    -webkit-box-shadow: -6px -4px 15px -2px rgba(0,0,0,0.64);
+    -moz-box-shadow: -6px -4px 15px -2px rgba(0,0,0,0.64);
+    box-shadow: -6px -4px 15px -2px rgba(0,0,0,0.64);
+}
+.ticket{
+    font-size: 1.4em;
+}
+.form-group{
+    width: 40%;
+    display: inline-block;
+}
+.timepicker{
+    display: inline-block;
+    width: 100%;
+}
+.form_group{
+    width: 40%;
+    display: inline-block;
+}
+.row_table:nth-child(odd) {
+    background: #fff;
+}
+thead{
+    background-color: #6c7ae0;
+    color: white;
+}
+
+.table_main{
+    margin-top: 50px;
+ }
+#result_check{
+    width: 100%;
+    height: 10%;
+}
+@media only screen and (max-width: 600px) {
+    .ticket{
+        font-size: 1.1em;
+    }
+}

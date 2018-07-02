@@ -1,0 +1,21 @@
+{
+  "name": "Second-module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "electron": "electron .",
+    "rebuild": "electron-rebuild -f -w sqlite3"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^2.0.3",
+    "fluent-ffmpeg": "^2.1.2",
+    "mysql": "^2.15.0",
+    "sqlite3": "^4.0.1"
+  },
+  "devDependencies": {
+    "electron-rebuild": "^1.7.3"
+  }
+}
