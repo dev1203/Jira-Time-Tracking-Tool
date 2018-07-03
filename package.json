@@ -1,11 +1,11 @@
 {
-  "name": "Second-module",
+  "name": "second-module",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "electron": "electron .",
-    "rebuild": "electron-rebuild -f -w sqlite3"
+    "rebuild": "electron-rebuild -f -w sqlite3",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -17,5 +17,14 @@
   },
   "devDependencies": {
     "electron-rebuild": "^1.7.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dev1203/Jira-Time-Tracking-Tool.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dev1203/Jira-Time-Tracking-Tool/issues"
+  },
+  "homepage": "https://github.com/dev1203/Jira-Time-Tracking-Tool#readme",
+  "description": ""
 }

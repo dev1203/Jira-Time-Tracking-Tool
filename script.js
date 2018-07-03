@@ -1,3 +1,5 @@
+
+// -------------------------------
 // Firebase Initilization
 var config = {
     apiKey: "AIzaSyAXVopqYljuSO7daP1nIN_glMoxhT-fPCE",
@@ -21,6 +23,8 @@ var config = {
     }
   }
 });
+
+
 // ---------------------------------------------------------------------------------
 var user_name="";
 
@@ -68,39 +72,36 @@ $("#out").on("click",function(){
 });
 
 // ---------------------------------------------------------------------------------
-
-// SQL Stuff
-
-var sqlite3 = require('sqlite3').verbose();
-  // var db = new sqlite3.Database(':memory:');
-const path = require('path');
-const dbPath = path.resolve(__dirname, './');
-var db = new sqlite3.Database(dbPath);
-
- 
-db.serialize(function() {
-  db.run("CREATE TABLE lorem (info TEXT)");
- 
-  var stmt = db.prepare("INSERT INTO lorem VALUES (?)");
-  for (var i = 0; i < 10; i++) {
-      stmt.run("Ipsum " + i);
-  }
-  stmt.finalize();
- 
-  db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
-      console.log(row.id + ": " + row.info);
-  });
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    password : '*******************',
+    database: 'todoapp'
 });
- 
-db.close();
+connection.connect(function(err) {
+    if (err) {
+        return console.error('error: ' + err.message);
+    }
 
+    let createTodos = `create table if not exists jira_app(
+                          id int primary key auto_increment,
+                          ticket varchar(255),
+                          type varchar(255),time_spend double,dev_time double,date varchar(255))`;
+
+    connection.query(createTodos, function(err, results, fields) {
+        if (err) {
+            console.log(err.message);
+        }
+    });
+});
 // ---------------------------------------------------------------------------------
 
 //This is to calculate time, get project, dev time etc.
 $("#Summary_calculate").on('click',function(){
     $("#result_check").val(' ');
-    var ticket=$("#ticket").val();
-    var type=$("#ticket_type option:selected").text();
+    var ticket_number=$("#ticket").val();
+    var ticket_type=$("#ticket_type option:selected").text();
     var start=$("#start_time").val();
     var end=$("#end_time").val();
     var time_start=get24hTime(start);
@@ -109,9 +110,19 @@ $("#Summary_calculate").on('click',function(){
     var endTime=moment(time_end, "HH:mm");
     var duration = moment.duration(endTime.diff(startTime));
     var minutes = parseInt(duration.asMinutes())
-    var s="Ticket Number: "+ticket+" | "+"Time Spend:"+minutes+" | "
-    +"Development Time: 0 "+" | "+"Project: "+type;
-    $("#result_check").val(s);
+    var s="Ticket Number: "+ticket_number+" | "+"Time Spend:"+minutes+" | "
+    +"Development Time: 0 "+" | "+"Project: "+ticket_type;
+    $("#result_check").val(s); 
+    let post={ticket:ticket_number,type:ticket_type,time_spend:minutes,dev_time:0,date:new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('T')[0]};
+    let sql="INSERT INTO jira_app SET ?";
+    let query=connection.query(sql,post,(err,res) => {
+        if (err) {
+            console.log(err.message);
+        }
+        else{
+            console.log("Added");
+        }
+    });   
 });
 
 //Convert 12 hrs into 24 hrs
@@ -157,48 +168,19 @@ $("#open").on('click',function(){
   if(localStorage.getItem("User Name")){
   $("#userName").append(" "+localStorage.getItem("User Name").toUpperCase());
   }
+  var date=new Date(new Date().toString().split('GMT')[0]+'UTC').toISOString().split('T')[0];
+  var sql="SELECT * FROM jira_app WHERE date='"+date+"'";
+  connection.query(sql,function(err,results,fields){
+  if(err){throw err;}
+  var i=0;
+  results.forEach(function(element){
+  $("#table_content").append($('<tr></tr>').addClass('row_table').attr('id',i));
+  $('#'+i).append($('<td></tr').text(element.ticket));
+  $('#'+i).append($('<td></tr').text(element.type));
+  $('#'+i).append($('<td></tr').text(element.time_spend));
+  $('#'+i).append($('<td></tr').text(element.dev_time));
+  i++;
+ });
+});
+ 
 })();
-
-
-
-
-
-////
-// var mysql = require('mysql');
-// var connection = mysql.createConnection({
-//     host     : 'localhost',
-//     user     : 'root',
-//     password : 'Jaishriram3',
-//     database: 'todoapp'
-// });
-// connection.connect(function(err) {
-//     if (err) {
-//         return console.error('error: ' + err.message);
-//     }
-
-//     let createTodos = `create table if not exists todos(
-//                           id int primary key auto_increment,
-//                           ticket varchar(255),
-//                           time int(1) default 0,date varchar(255)
-//                       )`;
-
-//     connection.query(createTodos, function(err, results, fields) {
-//         if (err) {
-//             console.log(err.message);
-//         }
-//     });
-// });
-
-// $sql='SELECT * FROM todos';
-// connection.query($sql,function(err,results,fields){
-//  if(err){throw err;}
-//    var i=0;
-//    results.forEach(function(element){
-//    $("#table_content").append($('<tr></tr>').addClass('row_table').attr('id',i));
-//    $('#'+i).append($('<td></tr').text(results[0].ticket));
-//    $('#'+i).append($('<td></tr').text(results[0].time));
-//    $('#'+i).append($('<td></tr').text(results[0].ticket));
-//    $('#'+i).append($('<td></tr').text(results[0].time));
-//    i++;
-//  });
-// });
